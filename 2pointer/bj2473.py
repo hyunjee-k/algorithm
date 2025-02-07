@@ -21,6 +21,8 @@ class TwoPointer:
         min_abs = float('inf')
 
         for i in range(self.n-2):
+
+            
             left = i + 1
             right = self.n - 1
             while left < right:
