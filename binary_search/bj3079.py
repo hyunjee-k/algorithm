@@ -7,7 +7,6 @@ https://www.acmicpc.net/problem/3079
 '''
 
 import sys 
-import heapq
 
 n, m = map(int, sys.stdin.readline().split())
 times = [int(sys.stdin.readline()) for _ in range(n)]
@@ -33,4 +32,3 @@ def binary_search():
     
 
 print(binary_search())
-
