@@ -34,7 +34,7 @@ def bfs():
             else: continue
 
         for nx in (x-1, x+1, x*2):
-            if 0 <= nx <= max(n, k) * 2: # 배열 범위 확인인
+            if 0 <= nx <= max(n, k) * 2: # 배열 범위 확인
                 if visit[nx] >= visit[x] + 1:
                     dq.append(nx)
                     visit[nx] = visit[x] + 1
