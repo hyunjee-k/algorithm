@@ -29,7 +29,6 @@ def solution(info, n, m):
             if j + b < m:
                 dp[i][j+b] = min(dp[i][j+b], dp[i-1][j])
 
-    print(dp)
     answer = min(dp[size])
     if answer < n: return answer
     
