@@ -1,7 +1,7 @@
 '''
 
 https://school.programmers.co.kr/learn/courses/30/lessons/250134
-- Programmers 250134 수레 움직이기기 (Lv.3)
+- Programmers 250134 수레 움직이기 (Lv.3)
 - BFS
 
 '''
