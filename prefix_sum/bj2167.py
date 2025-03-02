@@ -35,11 +35,7 @@ for i in range(n):
     for j in range(m+1):
         prefix_sum[i+1][j] += prefix_sum[i][j]
 
-for i in prefix_sum:
-    print(i)
-
 # 구하려는 범위의 누적합 출력
 for r1, c1, r2, c2 in dir:
-    print(prefix_sum[r2][c2], prefix_sum[r2][c1-1], prefix_sum[r1-1][c2], prefix_sum[r1][c1])
     res = prefix_sum[r2][c2] - prefix_sum[r2][c1-1] - prefix_sum[r1-1][c2] + prefix_sum[r1-1][c1-1]
     print(res)

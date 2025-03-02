@@ -4,6 +4,8 @@ https://school.programmers.co.kr/learn/courses/30/lessons/87694
 - Programmers 87694 아이템 줍기 (Lv.3)
 - BFS
 
+좌표에 *2 해서 구하기가 포인트
+
 '''
 
 from collections import deque
@@ -11,16 +13,16 @@ from collections import deque
 def solution(rectangle, characterX, characterY, itemX, itemY):
     for i in range(len(rectangle)):
         for j in range(4):
-            rectangle[i][j] *= 4
+            rectangle[i][j] *= 2
     
-    characterX *= 4
-    characterY *= 4
-    itemX *= 4
-    itemY *= 4
+    characterX *= 2
+    characterY *= 2
+    itemX *= 2
+    itemY *= 2
 
 
     dq = deque()
-    visit = [[0 for _ in range(201)] for _ in range(201)]
+    visit = [[0 for _ in range(101)] for _ in range(101)]
     
     rects = find_rectangle(rectangle, -1, characterX, characterY)
     visit[characterY][characterX] = 1
@@ -31,7 +33,7 @@ def solution(rectangle, characterX, characterY, itemX, itemY):
         r, x, y, distance = dq.popleft()
 
         if x == itemX and y == itemY:
-            return distance//4
+            return distance//2
 
         x1, y1, x2, y2 = rectangle[r]
         if x1 == x or x2 == x:
