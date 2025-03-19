@@ -6,7 +6,7 @@ https://school.programmers.co.kr/learn/courses/30/lessons/131702
 
 '''
 
-from itertools  import product
+from itertools import product
 from copy import deepcopy
 
 def solution(clockHands):
@@ -19,26 +19,31 @@ def solution(clockHands):
     # 첫번째 줄 경우의 수 (중복 순열): 4πn
     for cases in product(range(4), repeat=n):
         copy_clock = deepcopy(clockHands)
-        total = sum(cases)
+        moves = 0
 
-        # 첫번째 줄 시계바늘 돌리기
+        # 첫 번째 줄 시계바늘 돌리기
         for i in range(n):
-            turn_clock(cases[i], i, 0, copy_clock)
+            if cases[i] > 0:  # 0이면 돌릴 필요 없음
+                turn_clock(cases[i], 0, i, copy_clock)
+                moves += cases[i]
 
-        # 2 ~ n번째줄 시계바늘 돌리기
-        for y, x in product(range(1, n), range(n)):
-            turning = (4 - copy_clock[y-1][x]) % 4
-            turn_clock(turning, x, y, copy_clock)
-            total += turning
+        # 나머지 줄 시계바늘 돌리기
+        for i in range(1, n):
+            for j in range(n):
+                if copy_clock[i-1][j] != 0:  # 위 칸이 0이 아닐 경우 돌려야 함
+                    turning = (4 - copy_clock[i-1][j]) % 4
+                    if turning > 0:  # 0이면 돌릴 필요 없음
+                        turn_clock(turning, i, j, copy_clock)
+                        moves += turning
         
-        # 전부 0이 되었는지 확인 후 최소값 갱신 
-        if max(max(i) for i in copy_clock) == 0:
-            answer = min(answer, total)
-    
+        # 모든 시계가 0인지 확인 후 최소값 갱신
+        if all(all(clock == 0 for clock in row) for row in copy_clock):
+            answer = min(answer, moves)
+
     return answer
 
-# 시계 돌리기 
-def turn_clock(turning, c, r, clock_hands):
+# 시계바늘 돌리기
+def turn_clock(turning, r, c, clock_hands):
     dx = [0, 0, -1, 1]
     dy = [-1, 1, 0, 0]
     n = len(clock_hands)
@@ -46,11 +51,10 @@ def turn_clock(turning, c, r, clock_hands):
     # 현재 위치 돌리기
     clock_hands[r][c] = (clock_hands[r][c] + turning) % 4
 
-    # 현재 기준 상/하/좌/우 돌리기 
+    # 현재 기준 상/하/좌/우 돌리기
     for dir in range(4):
         x = c + dx[dir]
         y = r + dy[dir]
         if 0 <= x < n and 0 <= y < n:
             clock_hands[y][x] = (clock_hands[y][x] + turning) % 4
-    
-    return 
+

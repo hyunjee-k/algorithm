@@ -8,41 +8,34 @@ https://www.acmicpc.net/problem/2473
 
 import sys
 
-class TwoPointer:
-    def __init__(self):
-        # 용액의 개수 n
-        self.n = int(sys.stdin.readline())
-        # 용액 arr
-        self.arr = list(map(int, sys.stdin.readline().split()))
-        self.arr.sort()
+# 용액의 개수 n
+n = int(sys.stdin.readline())
+# 용액 arr
+arr = list(map(int, sys.stdin.readline().split()))
 
-    def solution(self):
-        result = []
-        min_abs = float('inf')
+def solution():
+    # 용액 정보를 오름차순 정렬
+    arr.sort()
 
-        for i in range(self.n-2):
+    answer = []
+    min_abs = float('inf')
+    for i in range(n-2):
+        l = i + 1
+        r = n - 1
+        while l < r:
+            tmp = arr[i] + arr[l] + arr[r]
+            if tmp == 0:
+               return [arr[i], arr[l], arr[r]]
 
-            
-            left = i + 1
-            right = self.n - 1
-            while left < right:
-                total = self.arr[i] + self.arr[left] + self.arr[right]
-                if abs(total) < min_abs:
-                    min_abs = abs(total)
-                    result = [self.arr[i], self.arr[left], self.arr[right]]
-                
-                if total < 0:
-                    left += 1
-                elif total > 0:
-                    right -= 1
-                else: # 합이 0이면 바로 종료 가능
-                    return result 
+            if abs(tmp) < min_abs:
+                min_abs = abs(tmp)
+                answer = [arr[i], arr[l], arr[r]]
 
-        return result
-    
+            if tmp < 0:
+                l += 1
+            else:
+                r -= 1
 
-if __name__ == "__main__":
-    tp = TwoPointer()
-    answer = tp.solution()
-    
-    print(*answer)
+    return answer    
+
+print(*solution())
